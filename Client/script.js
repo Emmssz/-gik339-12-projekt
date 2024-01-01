@@ -13,4 +13,17 @@ function handleData(e) {
   objectToDb.grafiskAspekt = userForm.grafiskAspekt.value;
 
   console.log(objectToDb);
+  const request = new Request(url, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(objectToDb),
+  });
+
+  fetch(request).then((response) => {
+    console.log(response);
+    //fetchData(); Läggs till sen när en sådan funktion finns
+    userForm.reset();
+  });
 }
