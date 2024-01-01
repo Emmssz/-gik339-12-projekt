@@ -33,7 +33,7 @@ let resources = [
 // Hämta alla resurser
 app.get("/resurs", (req, res) => {
   // Callback-funktion för GET /resurs
-  //Hämtar alla ur databasen
+  // Hämtar alla ur databasen
   const sql = "SELECT * FROM resources";
   db.all(sql, (err, rows) => {
     if (err) {
@@ -42,14 +42,48 @@ app.get("/resurs", (req, res) => {
       res.send(rows);
     }
   });
-  //res.json(resources);
+});
+
+// Hämtar en resurs (ej obligatorisk)
+app.get("/resurs/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = `SELECT * FROM resources WHERE id=${id}`;
+
+  db.all(sql, (err, rows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(rows[0]);
+    }
+  });
 });
 
 // Uppdatera en resurs
 app.put("/resurs", (req, res) => {
   // Callback-funktion för PUT /resurs
   // Logik för att uppdatera en befintlig resurs
-  res.send("Uppdatera en resurs");
+  const bodyData = req.body;
+  const id = bodyData.id;
+  const resurs = {
+    name: bodyData.name,
+    grafiskAspekt: bodyData.grafiskAspekt,
+  }; //mappar ihop
+
+  let updateString = "";
+  const columns = Object.keys(resurs);
+  columns.forEach((column, i) => {
+    updateString += `${column}="${resurs[column]}"`;
+    if (i !== columns.length - 1) updateString += ",";
+  });
+  const sql = `UPDATE resources SET ${updateString} WHERE id=${id}`;
+
+  db.run(sql, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send("Uppdaterat en resurs");
+    }
+  });
 });
 
 // Skapa en ny resurs
@@ -62,7 +96,7 @@ app.post("/resurs", (req, res) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.send("Skapa en ny resurs");
+      res.send("Skapat en ny resurs");
     }
   });
 
