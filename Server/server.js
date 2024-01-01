@@ -1,10 +1,10 @@
 // Importerar sqlite-modulen
 const sql = require("sqlite3").verbose();
 
-//Databasobjektet:
+// Databasobjektet:
 const db = new sql.Database("./databasen.db");
 
-// Testar databasen tas bort sen:
+// Testar databasen (tas bort sen):
 db.all("SELECT * FROM resources", (err, rows) => console.log(rows));
 
 const express = require("express");
@@ -33,7 +33,16 @@ let resources = [
 // Hämta alla resurser
 app.get("/resurs", (req, res) => {
   // Callback-funktion för GET /resurs
-  res.json(resources);
+  //Hämtar alla ur databasen
+  const sql = "SELECT * FROM resources";
+  db.all(sql, (err, rows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(rows);
+    }
+  });
+  //res.json(resources);
 });
 
 // Uppdatera en resurs
@@ -45,6 +54,7 @@ app.put("/resurs", (req, res) => {
 
 // Skapa en ny resurs
 app.post("/resurs", (req, res) => {
+  // Callback-funktion för POST /resurs
   const resurs = req.body;
   const sql = `INSERT INTO resources(name, grafiskAspekt) VALUES (?,?)`;
 
@@ -55,7 +65,7 @@ app.post("/resurs", (req, res) => {
       res.send("Skapa en ny resurs");
     }
   });
-  // Callback-funktion för POST /resurs
+
   // Logik för att skapa en ny resurs
 });
 
