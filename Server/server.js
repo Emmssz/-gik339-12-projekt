@@ -44,7 +44,7 @@ app.get("/resurs", (req, res) => {
   });
 });
 
-// Hämtar en resurs (ej obligatorisk)
+// Hämta en resurs (ej obligatorisk)
 app.get("/resurs/:id", (req, res) => {
   const id = req.params.id;
   const sql = `SELECT * FROM resources WHERE id=${id}`;
@@ -107,8 +107,16 @@ app.post("/resurs", (req, res) => {
 app.delete("/resurs/:id", (req, res) => {
   // Callback-funktion för DELETE /resurs/:id
   const resourceId = req.params.id;
-  // Logik för att ta bort en resurs med det angivna ID:t
-  res.send(`Ta bort resurs med ID ${resourceId}`);
+  const sql = `DELETE FROM resources WHERE id = ${resourceId}`;
+
+  db.run(sql, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      // Logik för att ta bort en resurs med det angivna ID:t
+      res.send(`Ta bort resurs med ID ${resourceId}`);
+    }
+  });
 });
 
 // Starta servern på valfri port (t.ex. 3000)
