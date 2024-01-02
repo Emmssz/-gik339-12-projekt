@@ -2,10 +2,10 @@
 const sql = require("sqlite3").verbose();
 
 // Databasobjektet:
-const db = new sql.Database("./databasen.db");
+const db = new sql.Database("./library.db");
 
 // Testar databasen (tas bort sen):
-db.all("SELECT * FROM resources", (err, rows) => console.log(rows));
+db.all("SELECT * FROM books", (err, rows) => console.log(rows));
 
 const express = require("express");
 const app = express();
@@ -24,17 +24,17 @@ app
 app.use(express.json());
 
 // Simulerad databas för exempeländamål
-let resources = [
-  { id: 1, name: "Resurs 1" },
-  { id: 2, name: "Resurs 2" },
-  // Lägg till fler resurser om det behövs
+let books = [
+  { id: 1, boktitel: "book 1" },
+  { id: 2, boktitel: "book 2" },
+  // Lägg till fler booker om det behövs
 ];
 
-// Hämta alla resurser
-app.get("/resurs", (req, res) => {
-  // Callback-funktion för GET /resurs
+// Hämta alla booker
+app.get("/book", (req, res) => {
+  // Callback-funktion för GET /book
   // Hämtar alla ur databasen
-  const sql = "SELECT * FROM resources";
+  const sql = "SELECT * FROM books";
   db.all(sql, (err, rows) => {
     if (err) {
       res.status(500).send(err);
@@ -44,10 +44,10 @@ app.get("/resurs", (req, res) => {
   });
 });
 
-// Hämta en resurs (ej obligatorisk)
-app.get("/resurs/:id", (req, res) => {
+// Hämta en book (ej obligatorisk)
+app.get("/book/:id", (req, res) => {
   const id = req.params.id;
-  const sql = `SELECT * FROM resources WHERE id=${id}`;
+  const sql = `SELECT * FROM books WHERE id=${id}`;
 
   db.all(sql, (err, rows) => {
     if (err) {
@@ -58,63 +58,65 @@ app.get("/resurs/:id", (req, res) => {
   });
 });
 
-// Uppdatera en resurs
-app.put("/resurs", (req, res) => {
-  // Callback-funktion för PUT /resurs
-  // Logik för att uppdatera en befintlig resurs
+// Uppdatera en book
+app.put("/book", (req, res) => {
+  // Callback-funktion för PUT /book
+  // Logik för att uppdatera en befintlig book
   const bodyData = req.body;
   const id = bodyData.id;
-  const resurs = {
-    name: bodyData.name,
-    grafiskAspekt: bodyData.grafiskAspekt,
+  const book = {
+    boktitel: bodyData.boktitel,
+    forfattare: bodyData.forfattare,
+    genre: bodyData.genre,
+    status: bodyData.status,
   }; //mappar ihop
 
   let updateString = "";
-  const columns = Object.keys(resurs);
+  const columns = Object.keys(book);
   columns.forEach((column, i) => {
-    updateString += `${column}="${resurs[column]}"`;
+    updateString += `${column}="${book[column]}"`;
     if (i !== columns.length - 1) updateString += ",";
   });
-  const sql = `UPDATE resources SET ${updateString} WHERE id=${id}`;
+  const sql = `UPDATE books SET ${updateString} WHERE id=${id}`;
 
   db.run(sql, (err) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.send("Uppdaterat en resurs");
+      res.send("Uppdaterat en book");
     }
   });
 });
 
-// Skapa en ny resurs
-app.post("/resurs", (req, res) => {
-  // Callback-funktion för POST /resurs
-  const resurs = req.body;
-  const sql = `INSERT INTO resources(name, grafiskAspekt) VALUES (?,?)`;
+// Skapa en ny book
+app.post("/book", (req, res) => {
+  // Callback-funktion för POST /book
+  const book = req.body;
+  const sql = `INSERT INTO books(boktitel, forfattare, genre, status) VALUES (?,?,?,?)`;
 
-  db.run(sql, Object.values(resurs), (err) => {
+  db.run(sql, Object.values(book), (err) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.send("Skapat en ny resurs");
+      res.send("Skapat en ny bok");
     }
   });
 
-  // Logik för att skapa en ny resurs
+  // Logik för att skapa en ny book
 });
 
-// Ta bort en specifik resurs med ID
-app.delete("/resurs/:id", (req, res) => {
-  // Callback-funktion för DELETE /resurs/:id
+// Ta bort en specifik book med ID
+app.delete("/book/:id", (req, res) => {
+  // Callback-funktion för DELETE /book/:id
   const resourceId = req.params.id;
-  const sql = `DELETE FROM resources WHERE id = ${resourceId}`;
+  const sql = `DELETE FROM books WHERE id = ${resourceId}`;
 
   db.run(sql, (err) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      // Logik för att ta bort en resurs med det angivna ID:t
-      res.send(`Ta bort resurs med ID ${resourceId}`);
+      // Logik för att ta bort en book med det angivna ID:t
+      res.send(`Ta bort bok med ID ${resourceId}`);
     }
   });
 });

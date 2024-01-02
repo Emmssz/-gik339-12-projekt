@@ -3,22 +3,22 @@
 
 const { userInfo } = require("os");
 
-function handleData(e) {
+function handleBooks(e) {
   e.preventDefault();
-  const objectToDb = {
-    name: "",
+  const bookToDb = {
+    boktitel: "",
     grafiskAspekt: "",
   };
-  objectToDb.name = userForm.name.value;
-  objectToDb.grafiskAspekt = userForm.grafiskAspekt.value;
+  bookToDb.boktitel = userForm.boktitel.value;
+  bookToDb.grafiskAspekt = userForm.grafiskAspekt.value;
 
-  console.log(objectToDb);
+  console.log(bookToDb);
   const request = new Request(url, {
     method: "POST",
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(objectToDb),
+    body: JSON.stringify(bookToDb),
   });
 
   fetch(request).then((response) => {
