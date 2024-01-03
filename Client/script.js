@@ -1,24 +1,52 @@
-//skapar en lista och lägger till det i html
 document.addEventListener("DOMContentLoaded", () => {
-  var divBox = document.createElement("div");
-  divBox.classList.add("dynamicList");
+  //visar alla böcker när sidan laddas in
+  fetchBooks();
 
+  //eventlyssnare för uppdatering samt borttagning
+  document.body.addEventListener("click", (e) => {
+    //if (e.target.classList.contains("update-btn")) {
+    //uppdatera
+    // const bookId = }
+    //else if (e.target.classList.contains("delete-btn")) { -- kod ---}
+  });
+});
+
+//funktion som hämar in samtliga bcöker samt skapar strukturen i html
+function fetchBooks() {
   fetch("http://localhost:3000/books")
     .then((response) => response.json())
-    .then((books) => {
-      books.map((book) => {
-        let bookList = `<ul class="bookList">
-        <li class="bookList__info title">Titel: ${book.boktitel}</li>
-        <li class="bookList__info author">Författare: ${book.forfattare}</li>
-        <li class="bookList__info genre">Genre: ${book.genre}</li>
-        <li class="bookList__info color">Status: ${book.status}</li>
-        </ul>`;
-        divBox.insertAdjacentHTML("afterbegin", bookList);
+    .then((data) => {
+      const container = document.createElement("div");
+      container.className = "container";
+      document.body.appendChild(container);
+
+      const heading = document.createElement("h3");
+      heading.textContent = "Bibliotekets böcker";
+      container.appendChild(heading);
+
+      const booksList = document.createElement("div");
+      booksList.id = "bookList";
+      booksList.className = "bookList";
+      container.appendChild(booksList);
+
+      data.forEach((book) => {
+        const listItem = document.createElement("div");
+        listItem.className = "list-group-item";
+        listItem.innerHTML = `
+          <div class="list-books"><div class="list-books-text"><div class="list-group-item change-color status-${book.status.toLowerCase()}"><span class="statusText">${
+          book.status
+        }</span></div>${book.boktitel},  ${book.forfattare} (${
+          book.genre
+        })</div> <div class="btn-list">
+          <button class="btn update-btn" data-id="${book.id}">Uppdatera</button>
+          <button class="btn delete-btn" data-id="${
+            book.id
+          }">Ta bort</button></div></div>
+        `;
+        booksList.appendChild(listItem);
       });
-      var placeDiv = document.getElementsByTagName("body")[0];
-      placeDiv.appendChild(divBox);
     });
-});
+}
 
 // Funktion för att lägga till något i databasen när man klickar på
 // en "Skicka"-knapp eller liknanade
