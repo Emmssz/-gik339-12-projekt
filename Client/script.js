@@ -1,3 +1,13 @@
+//skapar en lista och lägger till det i html
+document.addEventListener("DOMContentLoaded", () => {
+  var divBox = document.createElement("div");
+  divBox.classList.add("dynamicList");
+
+  fetch("http://localhost:3000/books")
+    .then((response) => response.json())
+    .then((books) => {});
+});
+
 // Funktion för att lägga till något i databasen när man klickar på
 // en "Skicka"-knapp eller liknanade
 
