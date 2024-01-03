@@ -8,13 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((books) => {
       books.map((book) => {
         let bookList = `<ul class="bookList">
-      <li class="bookList__info title">Titel: ${book.boktitel}</li>
-      <li class="bookList__info author">Författare: ${book.forfattare}</li>
-      <li class="bookList__info genre">Genre: ${book.genre}</li>
-      <li class="bookList__info color">Status: ${book.status}</li>
-      </ul>`;
+        <li class="bookList__info title">Titel: ${book.boktitel}</li>
+        <li class="bookList__info author">Författare: ${book.forfattare}</li>
+        <li class="bookList__info genre">Genre: ${book.genre}</li>
+        <li class="bookList__info color">Status: ${book.status}</li>
+        </ul>`;
         divBox.insertAdjacentHTML("afterbegin", bookList);
       });
+      var placeDiv = document.getElementsByTagName("body")[0];
+      placeDiv.appendChild(divBox);
     });
 });
 
