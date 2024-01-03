@@ -31,7 +31,7 @@ let books = [
 ];
 
 // Hämta alla booker
-app.get("/book", (req, res) => {
+app.get("/books", (req, res) => {
   // Callback-funktion för GET /book
   // Hämtar alla ur databasen
   const sql = "SELECT * FROM books";
@@ -45,7 +45,7 @@ app.get("/book", (req, res) => {
 });
 
 // Hämta en book (ej obligatorisk)
-app.get("/book/:id", (req, res) => {
+app.get("/books/:id", (req, res) => {
   const id = req.params.id;
   const sql = `SELECT * FROM books WHERE id=${id}`;
 
@@ -59,7 +59,7 @@ app.get("/book/:id", (req, res) => {
 });
 
 // Uppdatera en book
-app.put("/book", (req, res) => {
+app.put("/books", (req, res) => {
   // Callback-funktion för PUT /book
   // Logik för att uppdatera en befintlig book
   const bodyData = req.body;
@@ -89,7 +89,7 @@ app.put("/book", (req, res) => {
 });
 
 // Skapa en ny book
-app.post("/book", (req, res) => {
+app.post("/books", (req, res) => {
   // Callback-funktion för POST /book
   const book = req.body;
   const sql = `INSERT INTO books(boktitel, forfattare, genre, status) VALUES (?,?,?,?)`;
@@ -106,7 +106,7 @@ app.post("/book", (req, res) => {
 });
 
 // Ta bort en specifik book med ID
-app.delete("/book/:id", (req, res) => {
+app.delete("/books/:id", (req, res) => {
   // Callback-funktion för DELETE /book/:id
   const resourceId = req.params.id;
   const sql = `DELETE FROM books WHERE id = ${resourceId}`;

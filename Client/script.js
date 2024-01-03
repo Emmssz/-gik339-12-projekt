@@ -5,7 +5,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetch("http://localhost:3000/books")
     .then((response) => response.json())
-    .then((books) => {});
+    .then((books) => {
+      books.map((book) => {
+        let bookList = `<ul class="bookList">
+      <li class="bookList__info title">Titel: ${book.boktitel}</li>
+      <li class="bookList__info author">Författare: ${book.forfattare}</li>
+      <li class="bookList__info genre">Genre: ${book.genre}</li>
+      <li class="bookList__info color">Status: ${book.status}</li>
+      </ul>`;
+        divBox.insertAdjacentHTML("afterbegin", bookList);
+      });
+    });
 });
 
 // Funktion för att lägga till något i databasen när man klickar på
