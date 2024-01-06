@@ -57,14 +57,26 @@ function handleBooks(e) {
   e.preventDefault();
   const bookToDb = {
     boktitel: "",
-    grafiskAspekt: "",
+    forfattare: "",
+    genre: "",
+    status: "",
   };
+
   bookToDb.boktitel = userForm.boktitel.value;
-  bookToDb.grafiskAspekt = userForm.grafiskAspekt.value;
+  bookToDb.forfattare = userForm.forfattare.value;
+  bookToDb.genre = userForm.genre.value;
+  bookToDb.status = userForm.status.value;
 
   console.log(bookToDb);
+
+  const id = localStorage.getItem("currentBook");
+
+  if (id) {
+    serverUserObject.id = id;
+  }
+
   const request = new Request(url, {
-    method: "POST",
+    method: serverUserObject.id ? "PUT" : "POST",
     headers: {
       "content-type": "application/json",
     },
@@ -72,8 +84,9 @@ function handleBooks(e) {
   });
 
   fetch(request).then((response) => {
+    fetchBooks();
     console.log(response);
-    //fetchData(); Läggs till sen när en sådan funktion finns
+    localStorage.removeItem("currentBook");
     userForm.reset();
   });
 }
