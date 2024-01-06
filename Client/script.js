@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //if (e.target.classList.contains("update-btn")) {
     //uppdatera
     // const bookId = }
+    // Lagrar bort id:t lokalt för att uppdatera och inte skapa ny bok:
+    //localStorage.setItem("currentBook", book.id);
     //else if (e.target.classList.contains("delete-btn")) { -- kod ---}
   });
 });
@@ -48,10 +50,8 @@ function fetchBooks() {
     });
 }
 
-// Funktion för att lägga till något i databasen när man klickar på
-// en "Skicka"-knapp eller liknanade
-
-const { userInfo } = require("os");
+// Funktion för att lägga till en bok i databasen när man klickar på
+// en "Skicka"-knapp samt uppdaterar en redan en redan befintlig bok.
 
 function handleBooks(e) {
   e.preventDefault();
@@ -62,12 +62,10 @@ function handleBooks(e) {
     status: "",
   };
 
-  bookToDb.boktitel = userForm.boktitel.value;
-  bookToDb.forfattare = userForm.forfattare.value;
-  bookToDb.genre = userForm.genre.value;
-  bookToDb.status = userForm.status.value;
-
-  console.log(bookToDb);
+  bookToDb.boktitel = bookForm.boktitel.value;
+  bookToDb.forfattare = bookForm.forfattare.value;
+  bookToDb.genre = bookForm.genre.value;
+  bookToDb.status = bookForm.status.value;
 
   const id = localStorage.getItem("currentBook");
 
@@ -85,8 +83,7 @@ function handleBooks(e) {
 
   fetch(request).then((response) => {
     fetchBooks();
-    console.log(response);
     localStorage.removeItem("currentBook");
-    userForm.reset();
+    bookForm.reset();
   });
 }
