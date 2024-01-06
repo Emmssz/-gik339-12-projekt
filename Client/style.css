@@ -12,6 +12,8 @@
   margin: 20px;
 }
 
+
+
 .list-books {
   float: left;
   position: relative;
@@ -22,6 +24,7 @@
   background-color: rgba(211, 211, 211, 0.55);
   margin: 2.5px;
 }
+
 
 .list-books-text {
   box-sizing: border-box;
@@ -77,4 +80,11 @@
   display: inline-block;
   position: absolute;
   bottom: 10%;
+}
+
+.form-container {
+  float: right;
+  position: relative;
+  width: calc((98% - 10px) / 3);
+  
 }
