@@ -1,3 +1,5 @@
+const url = "http://localhost:3000/books";
+
 document.addEventListener("DOMContentLoaded", () => {
   //visar alla böcker när sidan laddas in
   fetchBooks();
@@ -53,6 +55,8 @@ function fetchBooks() {
 // Funktion för att lägga till en bok i databasen när man klickar på
 // en "Skicka"-knapp samt uppdaterar en redan en redan befintlig bok.
 
+bookForm.addEventListener("submit", handleBooks);
+
 function handleBooks(e) {
   e.preventDefault();
   const bookToDb = {
@@ -70,11 +74,11 @@ function handleBooks(e) {
   const id = localStorage.getItem("currentBook");
 
   if (id) {
-    serverUserObject.id = id;
+    bookToDb.id = id;
   }
 
   const request = new Request(url, {
-    method: serverUserObject.id ? "PUT" : "POST",
+    method: bookToDb.id ? "PUT" : "POST",
     headers: {
       "content-type": "application/json",
     },
