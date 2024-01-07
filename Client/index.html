@@ -7,6 +7,50 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="form-container">
+      <form action="#" method="get">
+        <label for="bok_id">Ange bok-ID </label>
+        <input type="text" id="bok_id" name="bok_id" />
+        <input type="submit" value="Sök" />
+      </form>
+    </div>
+
+    <!-- Testformulär-->
+    <form id="bookForm">
+      <div class="">
+        <label for="boktitel" class="col-4">Boktitel</label>
+        <input class="" type="text" name="boktitel" />
+      </div>
+      <div class="">
+        <label for="forfattare" class="">Författare</label>
+        <input class="" type="text" name="forfattare" />
+      </div>
+      <div class="">
+        <label for="genre" class="">Genre</label>
+        <select class="form-control" list="datalistOptions" name="genre">
+          <option value="Barn">Barn</option>
+          <option value="Studentlitteratur">Studentlitteratur</option>
+          <option value="Skönlitteratur">Skönlitteratur</option>
+          <option value="Deckare">Deckare</option>
+          <option value="Fakta">Fakta</option>
+        </select>
+      </div>
+      <div class="">
+        <label for="status" class="">Bokens status</label>
+        <select class="" list="datalistOptions" name="status">
+          <option value="Tillgänglig">Tillgänglig</option>
+          <option value="Reserverad">Reserverad</option>
+          <option value="Utlånad">Utlånad</option>
+        </select>
+        <div>
+          <button class="" type="reset" name="clearBookForm">Rensa</button>
+          <button class="" type="submit" name="submitBookForm">
+            Lägg till/Ändra
+          </button>
+        </div>
+      </div>
+    </form>
+
     <script src="script.js"></script>
   </body>
 </html>

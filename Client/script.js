@@ -1,3 +1,5 @@
+const url = "http://localhost:3000/books";
+
 document.addEventListener("DOMContentLoaded", () => {
   //visar alla böcker när sidan laddas in
   fetchBooks();
@@ -7,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //if (e.target.classList.contains("update-btn")) {
     //uppdatera
     // const bookId = }
+    // Lagrar bort id:t lokalt för att uppdatera och inte skapa ny bok:
+    //localStorage.setItem("currentBook", book.id);
     //else if (e.target.classList.contains("delete-btn")) { -- kod ---}
   });
 });
@@ -48,23 +52,33 @@ function fetchBooks() {
     });
 }
 
-// Funktion för att lägga till något i databasen när man klickar på
-// en "Skicka"-knapp eller liknanade
+// Funktion för att lägga till en bok i databasen när man klickar på
+// en "Skicka"-knapp samt uppdaterar en redan en redan befintlig bok.
 
-const { userInfo } = require("os");
+bookForm.addEventListener("submit", handleBooks);
 
 function handleBooks(e) {
   e.preventDefault();
   const bookToDb = {
     boktitel: "",
-    grafiskAspekt: "",
+    forfattare: "",
+    genre: "",
+    status: "",
   };
-  bookToDb.boktitel = userForm.boktitel.value;
-  bookToDb.grafiskAspekt = userForm.grafiskAspekt.value;
 
-  console.log(bookToDb);
+  bookToDb.boktitel = bookForm.boktitel.value;
+  bookToDb.forfattare = bookForm.forfattare.value;
+  bookToDb.genre = bookForm.genre.value;
+  bookToDb.status = bookForm.status.value;
+
+  const id = localStorage.getItem("currentBook");
+
+  if (id) {
+    bookToDb.id = id;
+  }
+
   const request = new Request(url, {
-    method: "POST",
+    method: bookToDb.id ? "PUT" : "POST",
     headers: {
       "content-type": "application/json",
     },
@@ -72,8 +86,8 @@ function handleBooks(e) {
   });
 
   fetch(request).then((response) => {
-    console.log(response);
-    //fetchData(); Läggs till sen när en sådan funktion finns
-    userForm.reset();
+    fetchBooks();
+    localStorage.removeItem("currentBook");
+    bookForm.reset();
   });
 }
