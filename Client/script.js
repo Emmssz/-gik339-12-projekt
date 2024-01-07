@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//funktion som hämar in samtliga bcöker samt skapar strukturen i html
+//funktion som hämar in samtliga böcker samt skapar strukturen i html
 function fetchBooks() {
-  fetch("http://localhost:3000/books")
+  fetch("/books")
     .then((response) => response.json())
     .then((data) => {
       const container = document.createElement("div");
