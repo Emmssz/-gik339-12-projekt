@@ -64,7 +64,9 @@ function fetchBooks() {
 }
 
 //funktion för att uppdatera böcker i listan
-function handleUpdateBook(bookId) {}
+function handleUpdateBook(bookId) {
+  //fetch("/books/${bookId}", {});
+}
 
 //funktion för att ta bort böcker från listan
 function handleDeleteBook(bookId) {}
