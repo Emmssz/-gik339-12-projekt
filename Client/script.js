@@ -17,7 +17,8 @@ const url = "http://localhost:3000/books";
 
 //funktion som hämar in samtliga böcker samt skapar strukturen i html
 function fetchBooks() {
-  fetch("/books")
+  console.log("funktionen fetchBooks startas...");
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
       const container = document.createElement("div");
@@ -59,6 +60,7 @@ function fetchBooks() {
         deleteBtn.addEventListener("click", () => handleDeleteBook(book.id));
       });
     });
+  console.log("funktionen fetchBooks har genomförts!");
 }
 
 //funktion för att uppdatera böcker i listan
