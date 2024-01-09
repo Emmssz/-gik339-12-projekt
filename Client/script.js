@@ -125,9 +125,6 @@ function handleBooks(e) {
   });
 }
 
-//hämtar alla böcker när sidan laddas in
-document.addEventListener("DOMContentLoaded", fetchBooks);
-
 // Visa Modal
 
 function showModal(message) {
@@ -137,3 +134,6 @@ function showModal(message) {
   const modal = new bootstrap.Modal(modalEl);
   modal.show();
 }
+
+//hämtar alla böcker när sidan laddas in
+document.addEventListener("DOMContentLoaded", fetchBooks);
