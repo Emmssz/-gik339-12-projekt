@@ -11,17 +11,24 @@ function fetchBooks() {
       //hämtar in body från html
       const body = document.getElementsByTagName("body")[0];
 
-      //lägger till en rubrik överst på sidan
-      const heading = document.createElement("h2");
-      heading.className = "books_heading";
-      heading.textContent = "Bibliotekets böcker";
-      body.insertAdjacentElement("afterbegin", heading);
+      //lägger till en rubrik överst på sidan, om det inte finns
+      if (!document.querySelector(".books_heading")) {
+        const heading = document.createElement("h2");
+        heading.className = "books_heading";
+        heading.textContent = "Bibliotekets böcker";
+        body.insertAdjacentElement("afterbegin", heading);
+      }
 
-      //lägger till en div där böckerna ska synas
-      const booksList = document.createElement("div");
-      booksList.id = "bookList";
-      booksList.className = "bookList";
-      body.appendChild(booksList);
+      let booksList = document.getElementById("bookList");
+      //lägger till en div där böckerna ska synas, om den inte finns
+      if (!booksList) {
+        booksList = document.createElement("div");
+        booksList.id = "bookList";
+        booksList.className = "bookList";
+        body.appendChild(booksList);
+      } else {
+        booksList.innerHTML = ""; // Rensar tidigare böcker
+      }
 
       //kod som repeteras för varje resurs (bok) och lägger till nedanstående info för varje objekt
       data.forEach((book) => {
