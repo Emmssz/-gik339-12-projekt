@@ -76,7 +76,7 @@ function handleUpdateBook(id) {
 function handleDeleteBook(id) {
   fetch(`${url}/${id}`, { method: "delete" }).then((result) => {
     //meddelande visas för användaren, modal
-    //
+    showModal("Boken har tagits bort");
     //böckerna hämtas in igen när en bok har raderats
     fetchBooks();
   });
@@ -116,6 +116,9 @@ function handleBooks(e) {
   });
 
   fetch(request).then((response) => {
+    showModal(
+      bookToDb.id ? "Boken har uppdaterats" : "En ny bok har lagts till"
+    );
     fetchBooks();
     localStorage.removeItem("currentBook");
     bookForm.reset();
@@ -124,3 +127,13 @@ function handleBooks(e) {
 
 //hämtar alla böcker när sidan laddas in
 document.addEventListener("DOMContentLoaded", fetchBooks);
+
+// Visa Modal
+
+function showModal(message) {
+  const modalBody = document.querySelector("#modalTarget .modal-body");
+  modalBody.textContent = message;
+  const modalEl = document.getElementById("modalTarget");
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+}
