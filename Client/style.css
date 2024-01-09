@@ -23,7 +23,7 @@
 .list-books {
   float: left;
   position: relative;
-  width: calc((98% - 10px) / 3);
+  width: calc((100% - 15px) / 3);
   height: 20vh;
   box-sizing: border-box;
   padding: 20px;

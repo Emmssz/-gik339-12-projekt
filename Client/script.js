@@ -1,39 +1,28 @@
+//sparar ner url till resursen (böckerna) i en variabel
 const url = "http://localhost:3000/books";
 
-//document.addEventListener("DOMContentLoaded", () => {
-//visar alla böcker när sidan laddas in
-//fetchBooks();
-
-//eventlyssnare för uppdatering samt borttagning
-//document.body.addEventListener("click", (e) => {
-//if (e.target.classList.contains("update-btn")) {
-//uppdatera
-// const bookId = }
-// Lagrar bort id:t lokalt för att uppdatera och inte skapa ny bok:
-//localStorage.setItem("currentBook", book.id);
-//else if (e.target.classList.contains("delete-btn")) { -- kod ---}
-//});
-//});
-
-//funktion som hämar in samtliga böcker samt skapar strukturen i html
+//funktion som läser in samtliga böcker samt skapar strukturen för listan i html
 function fetchBooks() {
+  //meddelande i konsolen för att tala om att funktionen startats
   console.log("funktionen fetchBooks startas...");
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      const container = document.createElement("div");
-      container.className = "container";
-      document.body.appendChild(container);
+      //hämtar in body från html
+      const body = document.getElementsByTagName("body")[0];
 
-      const heading = document.createElement("h3");
+      //lägger till en rubrik överst på sidan
+      const heading = document.createElement("h2");
       heading.textContent = "Bibliotekets böcker";
-      container.appendChild(heading);
+      body.insertAdjacentElement("afterbegin", heading);
 
+      //lägger till en div där böckerna ska synas
       const booksList = document.createElement("div");
       booksList.id = "bookList";
       booksList.className = "bookList";
-      container.appendChild(booksList);
+      body.appendChild(booksList);
 
+      //kod som repeteras för varje resurs (bok) och lägger till nedanstående info för varje objekt
       data.forEach((book) => {
         const listItem = document.createElement("div");
         listItem.className = "list-group-item";
@@ -60,6 +49,7 @@ function fetchBooks() {
         deleteBtn.addEventListener("click", () => handleDeleteBook(book.id));
       });
     });
+  //meddelande i konsolen för att tala om att funktionen har genomförts
   console.log("funktionen fetchBooks har genomförts!");
 }
 
