@@ -13,6 +13,7 @@ function fetchBooks() {
 
       //lägger till en rubrik överst på sidan
       const heading = document.createElement("h2");
+      heading.className = "books_heading";
       heading.textContent = "Bibliotekets böcker";
       body.insertAdjacentElement("afterbegin", heading);
 
