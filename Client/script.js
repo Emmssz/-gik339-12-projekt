@@ -54,10 +54,10 @@ function fetchBooks() {
 }
 
 //funktion för att uppdatera böcker i listan
-function handleUpdateBook(bookId) {
+function handleUpdateBook(id) {
   //meddelande i konsolen för att stämma av vilken bok som ändras (id)
-  console.log("Updating book with id:", bookId + ".");
-  fetch(`${url}/${bookId}`)
+  console.log("Updating book with id:", id + ".");
+  fetch(`${url}/${id}`)
     .then((result) => result.json())
     .then((book) => {
       //infon till samtliga fält i formuläret hämtas och skrivs ut i fälten
@@ -72,10 +72,10 @@ function handleUpdateBook(bookId) {
 }
 
 //funktion för att ta bort böcker från listan
-function handleDeleteBook(bookId) {
-  fetch(`${url}/${bookId}`, { method: "delete" }).then((result) => {
-    //meddelande i konsolen för att stämma av vilken bok som raderas (id)
-    console.log("Boken med id", bookId, "tas bort");
+function handleDeleteBook(id) {
+  fetch(`${url}/${id}`, { method: "delete" }).then((result) => {
+    //meddelande visas för användaren, modal
+    //
     //böckerna hämtas in igen när en bok har raderats
     fetchBooks();
   });
