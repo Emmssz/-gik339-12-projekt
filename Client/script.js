@@ -73,10 +73,12 @@ function handleUpdateBook(bookId) {
 
 //funktion för att ta bort böcker från listan
 function handleDeleteBook(bookId) {
-  //fetch(`${url}/${bookId}`) {
-  //böckerna hämtas in igen när en bok har raderats
-  //fetchBooks()
-  //});
+  fetch(`${url}/${bookId}`, { method: "delete" }).then((result) => {
+    //meddelande i konsolen för att stämma av vilken bok som raderas (id)
+    console.log("Boken med id", bookId, "tas bort");
+    //böckerna hämtas in igen när en bok har raderats
+    fetchBooks();
+  });
 }
 
 // Funktion för att lägga till en bok i databasen när man klickar på
