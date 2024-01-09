@@ -65,19 +65,32 @@ function fetchBooks() {
 
 //funktion för att uppdatera böcker i listan
 function handleUpdateBook(bookId) {
-  //fetch("/books/${bookId}", {});
+  //meddelande i konsolen för att stämma av vilken bok som ändras (id)
+  console.log("Updating book with id:", bookId + ".");
+  fetch(`${url}/${bookId}`)
+    .then((result) => result.json())
+    .then((book) => {
+      //infon till samtliga fält i formuläret hämtas och skrivs ut i fälten
+      bookForm.boktitel.value = book.boktitel;
+      bookForm.forfattare.value = book.forfattare;
+      bookForm.genre.value = book.genre;
+      bookForm.status.value = book.status;
+
+      //id sparas ner för att kunna användas senare och ändra infon om en bok (function handleBooks)
+      localStorage.setItem("currentBook", book.id);
+    });
 }
 
 //funktion för att ta bort böcker från listan
 function handleDeleteBook(bookId) {
-  //fetch("/books/${bookId}", {
+  //fetch(`${url}/${bookId}`) {
   //böckerna hämtas in igen när en bok har raderats
   //fetchBooks()
   //});
 }
 
 // Funktion för att lägga till en bok i databasen när man klickar på
-// en "Skicka"-knapp samt uppdaterar en redan en redan befintlig bok.
+// en "Skicka"-knapp samt uppdaterar en redan befintlig bok.
 
 bookForm.addEventListener("submit", handleBooks);
 
