@@ -125,6 +125,26 @@ function handleBooks(e) {
   });
 }
 
+// Visa en vald bok i en modal:
+//const searchForm = document.getElementById("searchForm");
+searchForm.addEventListener("submit", searchBooks);
+
+function searchBooks(e) {
+  e.preventDefault();
+  const searchTerm = document.getElementById("bok_id").value;
+  fetch(`${url}/query/${searchTerm}`)
+    .then((response) => response.json())
+    .then((books) => {
+      if (books.length > 0) {
+        showModal(
+          `Bok hittad: ${books[0].boktitel}, av ${books[0].forfattare}`
+        );
+      } else {
+        showModal("Ingen bok hittades");
+      }
+    });
+}
+
 // visa Modal
 function showModal(message) {
   const modalBody = document.querySelector("#modalTarget .modal-body");
