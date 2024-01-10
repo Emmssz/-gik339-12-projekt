@@ -32,7 +32,7 @@ function fetchBooks() {
         <div class="list-card"><div class="list-img"><img src="img/book.png"></div>
         <div class="list-books-text">
         <div class="list-group-item change-color status-${book.status.toLowerCase()}">
-        <span class="statusText">${book.status}</span>
+        <span class="status-text">${book.status}</span>
         </div>${book.boktitel},  ${book.forfattare} (${book.genre})</div>
          <div class="btn-list">
           <button class="btn update-btn" data-id="${book.id}">Uppdatera</button>
