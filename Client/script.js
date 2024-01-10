@@ -1,6 +1,5 @@
 //sparar ner url till resursen (böckerna) i en variabel
 const url = "http://localhost:3000/books";
-const url2 = "http://localhost:3000/books/search/:query";
 
 //funktion som läser in samtliga böcker samt skapar strukturen för listan i html
 function fetchBooks() {
@@ -124,26 +123,6 @@ function handleBooks(e) {
     localStorage.removeItem("currentBook");
     bookForm.reset();
   });
-}
-
-// Visa en vald bok i en modal:
-const searchForm = document.getElementById("searchForm");
-searchForm.addEventListener("submit", searchBooks);
-
-function searchBooks(e) {
-  e.preventDefault();
-  const searchTerm = document.getElementById("bok_id").value;
-  fetch(`${url}/search/${searchTerm}`)
-    .then((response) => response.json())
-    .then((books) => {
-      if (books.length > 0) {
-        showModal(
-          `Bok hittad: ${books[0].boktitel}, av ${books[0].forfattare}`
-        );
-      } else {
-        showModal("Ingen bok hittades");
-      }
-    });
 }
 
 // visa Modal
