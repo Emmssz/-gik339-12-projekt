@@ -29,7 +29,7 @@ function fetchBooks() {
 
         //html som läggs till för varje bok
         listItem.innerHTML = `
-        <div class="list-card"><div class="list-img"><img src="book.png"></div>
+        <div class="list-card"><div class="list-img"><img src="img/book.png"></div>
         <div class="list-books-text">
         <div class="list-group-item change-color status-${book.status.toLowerCase()}">
         <span class="statusText">${book.status}</span>
