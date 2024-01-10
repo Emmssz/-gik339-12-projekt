@@ -9,32 +9,27 @@ function fetchBooks() {
     .then((response) => response.json())
     .then((data) => {
       //hämtar in body från html
-      const body = document.getElementsByTagName("body")[0];
-
-      //lägger till en rubrik överst på sidan
-      const heading = document.createElement("h2");
-      heading.className = "books_heading";
-      heading.textContent = "Bibliotekets böcker";
-      body.insertAdjacentElement("afterbegin", heading);
+      const list = document.getElementById("books-list");
 
       //lägger till en div där böckerna ska synas
       const booksList = document.createElement("div");
       booksList.id = "bookList";
-      booksList.className = "bookList";
-      body.appendChild(booksList);
+      booksList.className = "row";
+      list.appendChild(booksList);
 
       //kod som repeteras för varje resurs (bok) och lägger till nedanstående info för varje objekt
       data.forEach((book) => {
         const listItem = document.createElement("div");
-        listItem.className = "list-group-item";
+        listItem.className = "col-4 list-books list-group-item";
 
         //html som läggs till för varje bok
         listItem.innerHTML = `
-          <div class="list-books"><div class="list-books-text"><div class="list-group-item change-color status-${book.status.toLowerCase()}"><span class="statusText">${
-          book.status
-        }</span></div>${book.boktitel},  ${book.forfattare} (${
-          book.genre
-        })</div> <div class="btn-list">
+        <div class="list-card"><div class="list-img"><img src="book.png"></div>
+        <div class="list-books-text">
+        <div class="list-group-item change-color status-${book.status.toLowerCase()}">
+        <span class="statusText">${book.status}</span>
+        </div>${book.boktitel},  ${book.forfattare} (${book.genre})</div>
+         <div class="btn-list">
           <button class="btn update-btn" data-id="${book.id}">Uppdatera</button>
           <button class="btn delete-btn" data-id="${
             book.id
@@ -76,7 +71,7 @@ function handleUpdateBook(id) {
 function handleDeleteBook(id) {
   fetch(`${url}/${id}`, { method: "delete" }).then((result) => {
     //meddelande visas för användaren, modal
-    showModal("Boken har tagits bort");
+    //
     //böckerna hämtas in igen när en bok har raderats
     fetchBooks();
   });
@@ -116,23 +111,10 @@ function handleBooks(e) {
   });
 
   fetch(request).then((response) => {
-    showModal(
-      bookToDb.id ? "Boken har uppdaterats" : "En ny bok har lagts till"
-    );
     fetchBooks();
     localStorage.removeItem("currentBook");
     bookForm.reset();
   });
-}
-
-// Visa Modal
-
-function showModal(message) {
-  const modalBody = document.querySelector("#modalTarget .modal-body");
-  modalBody.textContent = message;
-  const modalEl = document.getElementById("modalTarget");
-  const modal = new bootstrap.Modal(modalEl);
-  modal.show();
 }
 
 //hämtar alla böcker när sidan laddas in
