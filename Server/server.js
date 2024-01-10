@@ -66,8 +66,10 @@ app.get("/books/query/:query", (req, res) => {
 // Uppdatera en book
 app.put("/books", (req, res) => {
   // Callback-funktion för PUT /book
+  // Hämtar först data från förfrågan:
   const bodyData = req.body;
   const id = bodyData.id;
+  // I objektet book läggs datan från bodyData
   const book = {
     boktitel: bodyData.boktitel,
     forfattare: bodyData.forfattare,
@@ -76,11 +78,13 @@ app.put("/books", (req, res) => {
   };
 
   let updateString = "";
+  // Här skapas en lista av kolumn-namnen i book-objektet och kolumnnamn samt värde läggs i updateString
   const columns = Object.keys(book);
   columns.forEach((column, i) => {
     updateString += `${column}="${book[column]}"`;
     if (i !== columns.length - 1) updateString += ",";
   });
+  // SQL-sats för att uppdatera tabellen beroende på id.
   const sql = `UPDATE books SET ${updateString} WHERE id=${id}`;
 
   db.run(sql, (err) => {
