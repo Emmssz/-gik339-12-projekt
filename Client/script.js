@@ -10,7 +10,6 @@ function fetchBooks() {
     .then((data) => {
       //hämtar in div från html
       const list = document.getElementById("books-list");
-
       let booksList = document.getElementById("bookList");
       //lägger till en div där böckerna ska synas, om den inte finns
       if (!booksList) {
@@ -19,7 +18,8 @@ function fetchBooks() {
         booksList.className = "row";
         list.appendChild(booksList);
       } else {
-        booksList.innerHTML = ""; // Rensar tidigare böcker
+        //rensar tidigare böcker
+        booksList.innerHTML = "";
       }
 
       //kod som repeteras för varje resurs (bok) och lägger till nedanstående info för varje objekt
@@ -106,8 +106,9 @@ function handleBooks(e) {
   if (id) {
     bookToDb.id = id;
   }
-
+  // Nytt request-objekt skapas
   const request = new Request(url, {
+    // Om id finns så används PUT annars används POST
     method: bookToDb.id ? "PUT" : "POST",
     headers: {
       "content-type": "application/json",
@@ -116,6 +117,7 @@ function handleBooks(e) {
   });
 
   fetch(request).then((response) => {
+    // Olika modal-meddelande visas beroende på om boken är uppdaterad eller ny
     showModal(
       bookToDb.id ? "Boken har uppdaterats" : "En ny bok har lagts till"
     );
@@ -126,11 +128,11 @@ function handleBooks(e) {
 }
 
 // Visa en vald bok i en modal:
-//const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", searchBooks);
 
 function searchBooks(e) {
   e.preventDefault();
+  // Sökt bok eller författare sparas i variabeln searchTerm
   const searchTerm = document.getElementById("bok_id").value;
   fetch(`${url}/query/${searchTerm}`)
     .then((response) => response.json())
@@ -145,11 +147,13 @@ function searchBooks(e) {
     });
 }
 
-// visa Modal
+// Visa Modal
 function showModal(message) {
+  // Sätter själva texten till modalens "kropp"
   const modalBody = document.querySelector("#modalTarget .modal-body");
   modalBody.textContent = message;
   const modalEl = document.getElementById("modalTarget");
+  // En ny modal skapas:
   const modal = new bootstrap.Modal(modalEl);
   modal.show();
 }

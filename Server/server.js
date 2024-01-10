@@ -4,9 +4,7 @@ const sql = require("sqlite3").verbose();
 // Databasobjektet:
 const db = new sql.Database("./library.db");
 
-// Testar databasen (tas bort sen):
-db.all("SELECT * FROM books", (err, rows) => console.log(rows));
-
+// Skapar servern:
 const express = require("express");
 const app = express();
 
@@ -23,17 +21,9 @@ app
 // Middleware för att hantera JSON-data
 app.use(express.json());
 
-// Simulerad databas för exempeländamål
-let books = [
-  { id: 1, boktitel: "book 1" },
-  { id: 2, boktitel: "book 2" },
-  // Lägg till fler booker om det behövs
-];
-
-// Hämta alla booker
+// Hämta alla böcker ur databasen
 app.get("/books", (req, res) => {
   // Callback-funktion för GET /book
-  // Hämtar alla ur databasen
   const sql = "SELECT * FROM books";
   db.all(sql, (err, rows) => {
     if (err) {
@@ -76,7 +66,6 @@ app.get("/books/query/:query", (req, res) => {
 // Uppdatera en book
 app.put("/books", (req, res) => {
   // Callback-funktion för PUT /book
-  // Logik för att uppdatera en befintlig book
   const bodyData = req.body;
   const id = bodyData.id;
   const book = {
@@ -84,7 +73,7 @@ app.put("/books", (req, res) => {
     forfattare: bodyData.forfattare,
     genre: bodyData.genre,
     status: bodyData.status,
-  }; //mappar ihop
+  };
 
   let updateString = "";
   const columns = Object.keys(book);
@@ -116,8 +105,6 @@ app.post("/books", (req, res) => {
       res.send("Skapat en ny bok");
     }
   });
-
-  // Logik för att skapa en ny book
 });
 
 // Ta bort en specifik book med ID
@@ -130,7 +117,6 @@ app.delete("/books/:id", (req, res) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      // Logik för att ta bort en book med det angivna ID:t
       res.send(`Ta bort bok med ID ${resourceId}`);
     }
   });
