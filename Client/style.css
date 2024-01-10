@@ -42,33 +42,22 @@
 .image-container::after {
   content: "";
   position: absolute;
-  bottom: 0; 
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 15vh;
   background-color: rgb(87, 13, 13);
-}
-
-.image-container::after {
-  content: "";
-  position: absolute;
-  bottom: 0; 
-  left: 0;
-  width: 100%;
-  height: 15vh;
-  background-color: rgb(87, 13, 13);
-  animation: slideUp 3s ease forwards; */
+  animation: slideUp 3s ease forwards;
 }
 
 @keyframes slideUp {
   0% {
-    transform: translateY(100%); 
+    transform: translateY(100%);
   }
   100% {
-    transform: translateY(0); 
+    transform: translateY(0);
   }
 }
-
 
 .full-page-image {
   width: 100%;
