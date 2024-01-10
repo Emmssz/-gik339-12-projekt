@@ -45,7 +45,7 @@ app.get("/books", (req, res) => {
 });
 
 // Hämta en book (ej obligatorisk)
-app.get("/books/:id", (req, res) => {
+/* app.get("/books/:id", (req, res) => {
   const id = req.params.id;
   const sql = `SELECT * FROM books WHERE id=${id}`;
 
@@ -54,6 +54,19 @@ app.get("/books/:id", (req, res) => {
       res.status(500).send(err);
     } else {
       res.send(rows[0]);
+    }
+  });
+}); */
+
+app.get("/books/search/:query", (req, res) => {
+  const query = req.params.query;
+  const sql = `SELECT * FROM books WHERE boktitel LIKE '%${query}%' OR forfattare LIKE '%${query}%'`;
+
+  db.all(sql, (err, rows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(rows);
     }
   });
 });
