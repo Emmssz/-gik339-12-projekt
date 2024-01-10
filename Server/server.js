@@ -45,18 +45,6 @@ app.get("/books", (req, res) => {
 });
 
 // Hämta en book (ej obligatorisk)
-/* app.get("/books/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = `SELECT * FROM books WHERE id=${id}`;
-
-  db.all(sql, (err, rows) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(rows[0]);
-    }
-  });
-}); */
 
 app.get("/books/:query", (req, res) => {
   const query = req.params.query;
