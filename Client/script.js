@@ -8,24 +8,16 @@ function fetchBooks() {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      //hämtar in body från html
-      const body = document.getElementsByTagName("body")[0];
-
-      //lägger till en rubrik överst på sidan, om det inte finns
-      if (!document.querySelector(".books_heading")) {
-        const heading = document.createElement("h2");
-        heading.className = "books_heading";
-        heading.textContent = "Bibliotekets böcker";
-        body.insertAdjacentElement("afterbegin", heading);
-      }
+      //hämtar in div från html
+      const list = document.getElementById("books-list");
 
       let booksList = document.getElementById("bookList");
       //lägger till en div där böckerna ska synas, om den inte finns
       if (!booksList) {
         booksList = document.createElement("div");
         booksList.id = "bookList";
-        booksList.className = "bookList";
-        body.appendChild(booksList);
+        booksList.className = "row";
+        list.appendChild(booksList);
       } else {
         booksList.innerHTML = ""; // Rensar tidigare böcker
       }
