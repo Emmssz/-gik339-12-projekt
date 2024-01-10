@@ -49,7 +49,7 @@
 .image-container::after {
   content: "";
   position: absolute;
-  bottom: 100px;
+  bottom: 0; /* Start from the bottom */
   left: 0;
   width: 100%;
   height: 15vh;
@@ -59,10 +59,10 @@
 
 @keyframes slideUp {
   0% {
-    transform: translateY(0);
+    transform: translateY(100%); /* Start from below the container */
   }
   100% {
-    transform: translateY(-100%);
+    transform: translateY(0); /* Slide up to the original position */
   }
 }
 
