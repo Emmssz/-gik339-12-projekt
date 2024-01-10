@@ -58,7 +58,7 @@ app.get("/books", (req, res) => {
   });
 }); */
 
-app.get("/books/search/:query", (req, res) => {
+app.get("/books/:query", (req, res) => {
   const query = req.params.query;
   const sql = `SELECT * FROM books WHERE boktitel LIKE '%${query}%' OR forfattare LIKE '%${query}%'`;
 
