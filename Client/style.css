@@ -75,8 +75,6 @@
   left: 10%;
   color: var(--white);
   animation: slideIn 1.5s ease forwards;
-
-  filter: none;
 }
 
 @keyframes slideIn {
