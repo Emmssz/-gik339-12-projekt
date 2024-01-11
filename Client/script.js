@@ -34,7 +34,7 @@ function fetchBooks() {
           book.boktitel
         }</p><p>${book.forfattare}</p><p>(${book.genre})</p></div>
          <div class="col-5 btn-list">
-         <div class="col-7 list-group-item change-color status-${book.status.toLowerCase()} mb-2">
+         <div class="col-5 list-group-item change-color status-${book.status.toLowerCase()} mb-2">
         <span class="status-text">${book.status}</span>
         </div>
           <button class="col-10 btn update-btn mb-2" data-id="${

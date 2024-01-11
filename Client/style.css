@@ -39,6 +39,9 @@
   background-color: var(--dark-grey);
   transition: 0.5s;
 }
+.header-row input {
+  font-size: small;
+}
 
 /*till startsidan (bilden, texten)*/
 .img-row {
