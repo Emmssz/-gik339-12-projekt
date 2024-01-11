@@ -98,6 +98,7 @@
 
 .text-overlay a:hover {
   color: var(--light-grey);
+  transition: 0.5s;
 }
 
 /*marginal mellan startbilden och resten av innehållet*/
@@ -135,14 +136,17 @@
   color: var(--black);
   background-color: var(--grey);
   font-size: small;
+  transition: 0.5s;
 }
 
 .form-part.btn-change .btn-secondary:hover {
   background-color: var(--light-red);
+  transition: 0.5s;
 }
 
 .form-part.btn-change .btn-primary:hover {
   background-color: var(--light-green);
+  transition: 0.5s;
 }
 
 /*lägger till färger beroende på status på boken*/
@@ -209,14 +213,17 @@
   background-color: var(--grey);
   text-align: center;
   font-size: x-small;
+  transition: 0.5s;
 }
 
 .list-card .update-btn:hover {
   background-color: var(--light-green);
+  transition: 0.5s;
 }
 
 .list-card .delete-btn:hover {
   background-color: var(--light-red);
+  transition: 0.5s;
 }
 
 /*till footern*/
