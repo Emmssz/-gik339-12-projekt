@@ -29,16 +29,20 @@ function fetchBooks() {
 
         //html som läggs till för varje bok
         listItem.innerHTML = `
-        <div class="list-card"><div class="list-img"><img src="img/book.png"></div>
-        <div class="list-books-text">
-        <div class="list-group-item change-color status-${book.status.toLowerCase()}">
+        <div class="col-12 list-card"><div class="col-12 list-img"><img src="img/book.png"></div>
+        <div class="row"><div class="col-7 list-books-text"><p>${
+          book.boktitel
+        }</p><p>${book.forfattare}</p><p>(${book.genre})</p></div>
+         <div class="col-5 btn-list">
+         <div class="col-7 list-group-item change-color status-${book.status.toLowerCase()} mb-2">
         <span class="status-text">${book.status}</span>
-        </div>${book.boktitel},  ${book.forfattare} (${book.genre})</div>
-         <div class="btn-list">
-          <button class="btn update-btn" data-id="${book.id}">Uppdatera</button>
-          <button class="btn delete-btn" data-id="${
+        </div>
+          <button class="col-10 btn update-btn mb-2" data-id="${
             book.id
-          }">Ta bort</button></div></div>
+          }">Uppdatera</button>
+          <button class="col-10 btn delete-btn" data-id="${
+            book.id
+          }">Ta bort</button></div></div></div>
         `;
         booksList.appendChild(listItem);
 

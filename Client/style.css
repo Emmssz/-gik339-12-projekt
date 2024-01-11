@@ -5,49 +5,59 @@
   --status-green: rgb(80, 167, 80);
   --status-red: rgb(255, 90, 90);
   --status-yellow: rgb(222, 214, 91);
+  --turquoise: rgb(105, 184, 192);
+  --light-red: rgb(180, 85, 80);
+  --light-green: rgb(80, 180, 135);
+  --light-grey: rgb(220, 220, 220);
+  --grey: rgb(200, 200, 200);
+  --dark-grey: rgb(165, 165, 165);
+  --high-opacity-grey: rgba(150, 150, 150, 0.7);
+  --low-opacity-grey: rgba(211, 211, 211, 0.55);
 }
 
 * {
   margin: 0;
   padding: 0;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 /*till menyn*/
 .header-row {
-  background-color: rgba(161, 161, 161, 0.579);
-  height: 50px;
+  background-color: var(--turquoise);
+  height: 10vh;
   box-sizing: border-box;
 }
 
 .btn.btn-primary {
-  background-color: rgb(155, 155, 155);
+  background-color: var(--grey);
   border: none;
   transition: 0.5s;
 }
 
 .btn.btn-primary:hover {
-  background-color: grey;
+  background-color: var(--dark-grey);
   transition: 0.5s;
 }
 
 /*till startsidan (bilden, texten)*/
-.image-container {
+.img-row {
   position: relative;
+  background-image: url(img/library.png);
+  background-size: 100%;
   overflow: hidden;
-  width: 100%;
   height: 100vh;
-  background-color: rgb(90, 90, 90);
 }
 
-.image-container::after {
+.img-row::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 15vh;
-  background-color: rgb(87, 13, 13);
-  animation: slideUp 3s ease forwards;
+  background-color: var(--turquoise);
+  animation: slideUp 1.5s ease forwards;
 }
 
 @keyframes slideUp {
@@ -59,19 +69,25 @@
   }
 }
 
-.full-page-image {
-  width: 100%;
-  height: 100%;
-  display: block;
-  margin: 0 auto;
-  filter: opacity(0.3);
-}
-
-.text-overlay {
+.img-row .text-overlay {
   position: absolute;
   top: 35%;
   left: 10%;
   color: var(--white);
+  animation: slideIn 1.5s ease forwards;
+
+  filter: none;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .text-overlay a {
@@ -83,7 +99,7 @@
 }
 
 .text-overlay a:hover {
-  color: rgb(171, 171, 171);
+  color: var(--light-grey);
 }
 
 /*marginal mellan startbilden och resten av innehållet*/
@@ -97,37 +113,58 @@
 
 .list-books {
   box-sizing: border-box;
-  background-color: rgba(211, 211, 211, 0.55);
-  margin: 2.5px;
+  background-color: var(--low-opacity-grey);
   margin: 0;
   padding: 0;
 }
 
+/*formulär*/
+.form-part label {
+  font-size: medium;
+}
+
+.form-part select {
+  font-size: small;
+}
+
+.form-part input {
+  font-size: small;
+}
+
+.form-part.btn-change button {
+  margin-top: 5%;
+  border: none;
+  color: var(--black);
+  background-color: var(--grey);
+  font-size: small;
+}
+
+.form-part.btn-change .btn-secondary:hover {
+  background-color: var(--light-red);
+}
+
+.form-part.btn-change .btn-primary:hover {
+  background-color: var(--light-green);
+}
+
 /*lägger till färger beroende på status på boken*/
-.list-group-item .status-tillgänglig {
+
+.list-group-item.change-color {
   float: right;
   position: relative;
-  width: 2vw;
   height: 1.5vh;
   border: 1.5px solid var(--black);
+}
+
+.list-group-item .status-tillgänglig {
   background-color: var(--status-green);
 }
 
 .list-group-item .status-utlånad {
-  float: right;
-  position: relative;
-  width: 2vw;
-  height: 1.5vh;
-  border: 1.5px solid var(--black);
   background-color: var(--status-red);
 }
 
 .list-group-item .status-reserverad {
-  float: right;
-  position: relative;
-  width: 2vw;
-  height: 1.5vh;
-  border: 1.5px solid var(--black);
   background-color: var(--status-yellow);
 }
 
@@ -136,7 +173,7 @@
   visibility: hidden;
   top: -30px;
   right: -5%;
-  background-color: rgba(150, 150, 150, 0.7);
+  background-color: var(--high-opacity-grey);
   color: var(--white);
   font-size: 80%;
   text-align: center;
@@ -148,26 +185,13 @@
   visibility: visible;
 }
 
-.form-part.btn-change button {
-  margin-top: 5%;
-  border: none;
-  background-color: rgb(160, 175, 136);
-}
-
-.form-part.btn-change button:hover {
-  background-color: rgb(120, 139, 89);
-}
-
 /*hur böckerna i listan presenteras*/
-.list-card {
-  width: 90%;
-  margin: 0 auto;
-  box-sizing: border-box;
+.list-books-text {
+  font-size: medium;
 }
 
 .list-img {
-  width: 90%;
-  margin: 0 auto;
+  transform: scale(1);
   transition: ease-in-out 0.3s;
 }
 
@@ -176,17 +200,31 @@
 }
 
 .list-card:hover {
-  cursor: pointer;
-
   .list-img {
-    width: 100%;
+    transform: scale(1.1);
     transition: ease-in-out 0.3s;
   }
 }
 
-/*till footern, */
+.list-card .btn {
+  float: right;
+  background-color: var(--grey);
+  text-align: center;
+  font-size: x-small;
+}
+
+.list-card .update-btn:hover {
+  background-color: var(--light-green);
+}
+
+.list-card .delete-btn:hover {
+  background-color: var(--light-red);
+}
+
+/*till footern*/
 .footer-row {
-  height: 50px;
+  font-size: smaller;
+  height: 10vh;
   box-sizing: border-box;
-  background-color: bisque;
+  background-color: var(--grey);
 }
